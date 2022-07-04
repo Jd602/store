@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,4 +30,7 @@ public class City implements Serializable {
 
     @ManyToOne
     private Departamento departamento;
+
+    @OneToMany(mappedBy = "city")
+    private List<Person> persons;
 }

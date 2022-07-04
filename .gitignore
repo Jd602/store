@@ -22,3 +22,4 @@ build/
 /.gradle/
 /backend/src/main/resources/
 /backend/src/test/resources/
+/frontend/src/main/resources/
