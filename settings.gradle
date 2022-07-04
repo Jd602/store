@@ -1,0 +1,4 @@
+rootProject.name = 'Store'
+include 'backend'
+include 'frontend'
+
