@@ -4,10 +4,12 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,8 +24,12 @@ public class Customer extends Person implements Serializable {
     @NotBlank(message = "Debe ingresar la dirección")
     private String address;
 
-    public Customer(String cedula, String name, String lastname, @Email String email,
-                    String password, String direccion, City city, List<PhoneNumber> phoneNumbers){
-        super(cedula,name,lastname,email,password,city,phoneNumbers);
+    @OneToMany(mappedBy = "customer")
+    private List<Invoice> invoicesList;
+
+    public Customer(String cedula, String name, String lastname, LocalDate birthday, @Email String email,
+                     String password, City city, List<PhoneNumber> phoneNumbers, String address) {
+        super(cedula, name, lastname, birthday, email, password, city, phoneNumbers);
+        this.address = address;
     }
 }

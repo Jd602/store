@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -39,6 +40,9 @@ public class Person implements Serializable {
     @Size(max = 40, message = "El apellido debe tener m�ximo 40 caracteres")
     @NotBlank(message = "Debe de escribir su apellido")
     private String lastname;
+
+    @JoinColumn(nullable = false)
+    private LocalDate birthday;
 
     @Email(message = "El correo electrónico no es válido")
     @Column(length = 125, nullable = false, unique = true)

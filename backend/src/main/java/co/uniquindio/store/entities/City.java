@@ -28,6 +28,7 @@ public class City implements Serializable {
     @NotBlank(message = "El nombre de la ciudad no puede estar vacio")
     private String name;
 
+    @JoinColumn(nullable = false)
     @ManyToOne
     private Departamento departamento;
 

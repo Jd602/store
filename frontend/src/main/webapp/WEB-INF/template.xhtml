@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xml:lang="en" lang="en">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+
+    <title>Unitravel | <ui:insert name="title">Plantilla</ui:insert></title>
+</h:head>
+<h:body>
+
+    <div id="header">
+        <ui:insert name="header">
+            <nav class="navbar navbar-expand-lg py-3 navbar-dark bg-primary" style="background: #1185B0 !important;">
+                <div class="container">
+                    <a class="navbar-brand" href="/"><i class="fa-solid fa-plane"></i> BIENVENIDO A UNITRAVEL</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarColor02"
+                            aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarColor02">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                            <li class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"
+                                jsf:rendered="#{seguridadBean.rol=='adminHotel'}">
+                                <a href="/adminHotel/crear_hotel.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-building d-block mx-auto mb-1 icon-menu" ></i>Registrar hotel</a>
+                                <a href="/adminHotel/actualizar_hotel.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-undo d-block mx-auto mb-1 icon-menu" ></i>Actualizar hotel</a>
+                            </li>
+
+
+
+                            <li class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"
+                                jsf:rendered="#{seguridadBean.rol=='admin'}">
+                                <a href="/administrador/destinos.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-arrows-h d-block mx-auto mb-1 icon-menu" ></i>destinos</a>
+                                <a href="/administrador/vuelos.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-compass d-block mx-auto mb-1 icon-menu" ></i>vuelos</a>
+                                <a href="/administrador/gestionar_admin.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-users d-block mx-auto mb-1 icon-menu" ></i>admins</a>
+                            </li>
+
+                            <li class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small"
+                                jsf:rendered="#{seguridadBean.rol=='usuario'}">
+                                <a href="/usuario/hacer_reserva.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-calendar d-block mx-auto mb-1 icon-menu" ></i>Hacer reservación</a>
+                                <a href="/usuario/mis_reservas.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-bars d-block mx-auto mb-1 icon-menu" ></i>Mis reservas</a>
+                                <a href="/usuario/hacer_comentario.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-file d-block mx-auto mb-1 icon-menu" ></i>Crear comentario </a>
+                                <a href="/usuario/calificar_hotel.xhtml" class="nav-link text-active">
+                                    <i class="pi pi-thumbs-up d-block mx-auto mb-1 icon-menu" ></i>Calificar hotel </a>
+
+                            </li>
+
+
+                        </ul>
+
+                        <h:form>
+                            <div class="d-flex text-center">
+                                <div class="btn-group text-center" jsf:rendered="#{!seguridadBean.autenticado}">
+                                    <p:commandButton styleClass="ui-button-raised ui-button-secondary" value="Ingresar"
+                                                     onclick="PF('dlg1').show()" id="btn-login"
+                                                     rendered="#{!seguridadBean.autenticado}"
+                                                     style="background: transparent; color: white;border-color: white;border-radius: 10px"/>
+                                    <a id="btn-registro" type="button" href="registrar_usuario.xhtml"
+                                       class="btn btn-secondary"
+                                       style="background: transparent; color: white;border-color: white;border-radius: 10px">Registrar</a>
+                                </div>
+                            </div>
+                        </h:form>
+
+                        <div class="d-flex">
+
+                            <p:commandButton styleClass="ui-button-raised ui-button-secondary" value="Cerrar sesión"
+                                             action="#{seguridadBean.cerrarSesion}"
+                                             style="background: transparent; color: white;border-color: white"
+                                             rendered="#{seguridadBean.autenticado}"/>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <h:form>
+                <p:dialog id="dialogo" widgetVar="dlg1" Height="400px" width="40%" showEffect="fade"
+                          closeOnEscape="true" rendered="#{!seguridadBean.autenticado}" style="border: 1px solid black;background: #F0F8F7">
+
+                    <div style="margin-top: -1%">
+                        <div class="row">
+                            <div class="col" style="text-align: center">
+                                <h4 style="margin-left: 35%;color: #0E575D">Inicio de sesión</h4>
+                            </div>
+                            <div class="col-3" style="text-align: center">
+                                <img src="../resources/img/user.png" alt="" style="width: 50px;height: 50px;margin-top: 10%"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 5%">
+                        <div class="col">
+                            <h6>Correo electronico</h6>
+                            <p:inputText value="#{seguridadBean.email}" styleClass="p-d-block"
+                                         style="width: 100%;border: 1px solid black"
+                                         required="true" requiredMessage="Olvidaste el email"/>
+                            <br/>
+                            <br/>
+                            <h6>Contraseña</h6>
+                            <p:password value="#{seguridadBean.password}" style="width: 100%;border: 1px solid black"
+                                        required="true" requiredMessage="Olvidaste la contraseña"/>
+                        </div>
+                    </div>
+
+
+                    <f:facet name="footer">
+
+                        <div>
+                            <div class="row">
+                                <div class="col">
+                                    <p:button href="/index.xhtml" icon="pi pi-backward" value="Volver"
+                                              style="width: 120px;background: #7E8C8B !important; color: #0E575D;border-color: black !important;"/>
+                                </div>
+                                <div class="col" style="text-align: left">
+                                    <p:commandButton style="width: 120px;background: #24C5C0;color: #0E575D;border-color: black !important;" icon="pi pi-sign-in" value="Ingresar"
+                                                     styleClass="ui-button-raised ui-button-success ui-button-flat"
+                                                     action="#{seguridadBean.iniciarSesion()}" update="@form" href="/index.xhtml"/>
+                                    <p:growl showDetail="true" for="login-bean"/>
+                                </div>
+                            </div>
+                        </div>
+                    </f:facet>
+                </p:dialog>
+            </h:form>
+        </ui:insert>
+    </div>
+
+    <div id="content">
+        <ui:insert name="content">
+
+        </ui:insert>
+    </div>
+
+    <footer class="text-white py-2" style="background: #1185B0;width: 100%;position: absolute;margin-top: 50px">
+        <div class="container" style="width: 100%">
+            <nav class="row" style="width: 100%">
+
+
+                <ul class="col list-unstyled"
+                    style="align-content: center;position: relative;align-items: center;justify-content: center">
+                    <li style="justify-content: center;align-items: center;text-align: center; margin-top: 3%;margin-left: 20%">
+                        <a href="https://www.instagram.com/despegar.co/" class="text-reset" style="margin-left: 10px"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/DespegarColombia" class="text-reset" style="margin-left: 0%;"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/despegarco?lang=es" class="text-reset" style="margin-left: 0px"><i class="fa-brands fa-twitter"></i></a>
+                    </li>
+                    <li style="justify-content: center;align-items: center;text-align: center; margin-top: 0%;margin-left: 20%"> Unitravel v1.1</li>
+
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</h:body>
+</html>

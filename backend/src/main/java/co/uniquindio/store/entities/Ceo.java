@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ import java.util.List;
 @ToString
 public class Ceo extends Person implements Serializable {
 
-    public Ceo(String cedula, String name, String lastname, @Email String email,
-                    String password, City city, List<PhoneNumber> phoneNumbers) {
-        super(cedula, name, lastname, email, password, city, phoneNumbers);
+    public Ceo(String cedula, String name, String lastname, LocalDate birthday, @Email String email,
+               String password, City city, List<PhoneNumber> phoneNumbers) {
+        super(cedula, name, lastname, birthday, email, password, city, phoneNumbers);
     }
 }

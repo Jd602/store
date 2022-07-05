@@ -20,12 +20,17 @@ public class PhoneNumber implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JoinColumn(nullable = true)
     @ManyToOne
     private Person person;
 
-    @Column(length = 10)
+    @JoinColumn(nullable = true)
+    @ManyToOne
+    private Shop shop;
+
+    @Column(length = 10,nullable = false)
     @NotBlank
-    @Size(max = 10, min = 10, message = "El numero debe tener 10 digitos")
+    @Size(max = 10, min = 10, message = "El número debe tener 10 digitos")
     private String number;
 
     public PhoneNumber(String number, Person person) {
